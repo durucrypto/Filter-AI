@@ -4,6 +4,7 @@ const axios = require("axios");
 const app = express();
 const port = 8080;
 const apiKey = process.env.ETHERSCAN_API_KEY;
+
 const tokenContract = "0xeA4170A365952c666A9f34950771E51841732de9";
 const vestingContract = "0xDba68f07d1b7Ca219f78ae8582C213d975c25cAf"; // UNCX's vesting contract
 const burnAddress = "0x000000000000000000000000000000000000dEaD";
