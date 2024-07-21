@@ -18,7 +18,7 @@ const updateTokenSupplyData = async () => {
 
         const lockedSupplyResponse = await axios.get(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenContract}&address=${vestingContract}&tag=latest&apikey=${apiKey}`);
         await new Promise(r => setTimeout(r, 1000));
-        
+
         const burnedSupplyResponse = await axios.get(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenContract}&address=${burnAddress}&tag=latest&apikey=${apiKey}`);
 
         if (totalSupplyResponse.data.status !== "1" || lockedSupplyResponse.data.status !== "1" || burnedSupplyResponse.data.status !== "1") {
@@ -34,7 +34,7 @@ const updateTokenSupplyData = async () => {
         console.log(`Token supply data updated: Total Supply - ${totalSupplyCache}, Circulating Supply - ${circulatingSupplyCache}`);
 
     } catch(error) {
-        console.error("Error updating supplies:", error.message);
+        console.error("Error updating token supply data:", error.message);
     }
 };
 
