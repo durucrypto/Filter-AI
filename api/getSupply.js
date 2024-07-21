@@ -11,13 +11,14 @@ const burnAddress = "0x000000000000000000000000000000000000dEaD";
 let circulatingSupplyCache = null;
 let totalSupplyCache = null;
 
-// Function to update both circulating supply and total supply
 const updateTokenSupplyData = async () => {
     try {
         const totalSupplyResponse = await axios.get(`https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=${tokenContract}&apikey=${apiKey}`);
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 1000));
+
         const lockedSupplyResponse = await axios.get(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenContract}&address=${vestingContract}&tag=latest&apikey=${apiKey}`);
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 1000));
+        
         const burnedSupplyResponse = await axios.get(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenContract}&address=${burnAddress}&tag=latest&apikey=${apiKey}`);
 
         if (totalSupplyResponse.data.status !== "1" || lockedSupplyResponse.data.status !== "1" || burnedSupplyResponse.data.status !== "1") {
@@ -37,11 +38,9 @@ const updateTokenSupplyData = async () => {
     }
 };
 
-// Set up interval to update the supplies every 15 seconds
-setInterval(updateTokenSupplyData, 15000);
+setInterval(updateTokenSupplyData, 30000); // Set up interval to update the token supply data every ~30 seconds
 
-// Initial fetch to populate the cache
-updateTokenSupplyData();
+updateTokenSupplyData(); // Initial fetch to populate the cache
 
 app.get("/circulating-supply", (req, res) => {
     if (circulatingSupplyCache !== null) {
