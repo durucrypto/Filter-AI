@@ -29,10 +29,10 @@ const updateTokenSupplyData = async () => {
         const totalSupply = (Number(totalSupplyResponse.data.result) - Number(burnedSupplyResponse.data.result)) / 10 ** 18;
         const lockedSupply = Number(lockedSupplyResponse.data.result) / 10 ** 18;
 
-        totalSupplyCache = totalSupply;
+        totalSupplyCache = Math.round(totalSupply);
         circulatingSupplyCache = Math.round(totalSupply - lockedSupply);
 
-        console.log(`Token supply data updated: Total Supply - ${totalSupplyCache}, Circulating Supply - ${circulatingSupplyCache}`);
+        console.log(`Token supply data updated. Total Supply: ${totalSupplyCache}, Circulating Supply: ${circulatingSupplyCache}`);
 
     } catch(error) {
         console.error("Error updating token supply data:", error.message);
