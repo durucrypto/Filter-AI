@@ -85,8 +85,7 @@ async function main() {
                 msg = `✅ Validated prices.`;
             } else {
                 msg = `⚠️ Found ${discrepancyCount} price discrepancies.`;
-            }
-            
+            }     
         } else {
             msg = `❌ NEW ERROR! Something went wrong when validating prices. (${logCountDiff})`;
         }
